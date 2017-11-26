@@ -7,6 +7,7 @@
 body {
     margin: 0;
     font-family: Verdana;
+    background: #f4f4f4;
 }
 
 /*********** Header CSS ***********/
@@ -53,7 +54,9 @@ nav > a {
 }
 
 nav > a:hover {
-    background: linear-gradient(to right, white, #213087);
+    /* Use colour if linear-gradient not supported by browser */
+    background: #213087;
+    background: linear-gradient(to right, #f4f4f4, #213087);
     color: white;
 }
 
@@ -61,13 +64,19 @@ nav > a:hover {
 
 article {
     margin-left: 15%;
-    padding: 15px;
+    padding: 30px;
+    padding-left: 30px;
     min-height: 300px;
-    background-color: #f4f4f4;
+    background: white;
     border-left: 1px solid black;
 }
 
 article h1 {
     text-decoration: underline;
     margin: 0 0 15px 0;
+}
+
+article h2 {
+    font-size: 16px;
+    margin: 20px 0;
 }

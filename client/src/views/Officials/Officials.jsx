@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import OfficialList from './components/OfficialList.jsx';
 import styles from './Officials.css';
 
 export default class Officials extends Component {
@@ -12,6 +13,9 @@ export default class Officials extends Component {
         return (
             <div>
                 <h1>Officials</h1>
+
+                <h2>Officials List</h2>
+                <OfficialList />
             </div>
         );
     }

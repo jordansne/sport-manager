@@ -1,0 +1,36 @@
+/**
+ * TeamList.css
+ * Jordan Mathewson - 250868197
+ * CS3319A - Assignment #3
+ */
+
+.list {
+    padding: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+.header {
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.headerAttribute {
+    display: inline-block;
+    text-decoration: underline;
+}
+
+.idHeaderAttribute {
+    composes: headerAttribute;
+    width: 10%;
+}
+
+.nameHeaderAttribute {
+    composes: headerAttribute;
+    width: 45%;
+}
+
+.cityHeaderAttribute {
+    composes: headerAttribute;
+    width: 35%;
+}

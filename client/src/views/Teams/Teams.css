@@ -3,3 +3,37 @@
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
+
+.input {
+    margin: 0 10px;
+}
+
+.nameInput {
+    composes: input;
+    width: 130px;
+}
+
+.idInput {
+    composes: input;
+    width: 40px
+}
+
+.cityInput {
+    composes: input;
+    width: 100px;
+}
+
+.createButton {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+.sortOptions {
+    margin: 20px 0;
+}
+
+.sortButton {
+    margin: 0 2px;
+}

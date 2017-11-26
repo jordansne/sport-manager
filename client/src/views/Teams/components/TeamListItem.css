@@ -1,0 +1,40 @@
+/**
+ * TeamListItem.css
+ * Jordan Mathewson - 250868197
+ * CS3319A - Assignment #3
+ */
+
+.item {
+    padding: 10px;
+    margin: 5px 0;
+    width: calc(100% - 10px);
+    background-color: #f2f2f2;
+    border-radius: 2px;
+    list-style: none;
+}
+
+.attribute {
+    display: inline-block;
+}
+
+.idAttribute {
+    composes: attribute;
+    width: 10%;
+}
+
+.nameAttribute {
+    composes: attribute;
+    width: 45%;
+}
+
+.cityAttribute {
+    composes: attribute;
+    width: 35%;
+}
+
+.deleteButton {
+    width: 10%;
+    float: right;
+    border-radius: 2px;
+    padding: 2px 0;
+}

@@ -1,11 +1,11 @@
 /**
- * OfficialListItem.jsx
+ * OfficialItem.jsx
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
 
 import React, { Component } from 'react';
-import styles from './OfficialListItem.css';
+import styles from './OfficialItem.css';
 
 export default class OfficialListItem extends Component {
     render() {

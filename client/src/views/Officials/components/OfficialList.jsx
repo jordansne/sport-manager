@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import OfficialListItem from './OfficialListItem.jsx';
+import OfficialListItem from '../../../components/OfficialItem.jsx';
 import styles from './OfficialList.css';
 
 export default class OfficialList extends Component {

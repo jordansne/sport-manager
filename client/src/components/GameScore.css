@@ -1,16 +1,8 @@
 /**
- * GameInfo.css
+ * GameScore.css
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
-
-.official {
-    margin: 0 3px;
-}
-
-.gameInfo {
-    font-size: 14px;
-}
 
 .teamBox {
     background-color: #ededed;
@@ -30,10 +22,6 @@
 .teamDetails {
     text-align: center;
     margin: 20px 0;
-}
-
-.editButton {
-    margin-top: 10px;
 }
 
 .score {

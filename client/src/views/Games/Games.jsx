@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import GameInfo from './components/GameInfo.jsx';
+import GameScore from '../../components/GameScore.jsx';
 import styles from './Games.css';
 
 export default class Games extends Component {
@@ -51,20 +51,36 @@ export default class Games extends Component {
     }
 
     render() {
-        let gameInfoComp = null;
+        let game;
 
         if (this.state.game != null) {
-            gameInfoComp = (
-                <GameInfo
-                    gameId={this.state.game.id}
-                    date={this.state.game.date}
-                    location={this.state.game.location}
-                    headOff={this.state.game.headOff}
-                    officials={this.state.game.officials}
-                    team1={this.state.game.team1Info}
-                    team2={this.state.game.team2Info}
-                    handleEdit={this.handleEditButton}
-                />
+            const officials = [];
+
+            let counter = 0;
+            for (const official of this.state.game.officials) {
+                officials.push(
+                    <span className={styles.official} key={counter}>
+                        {official}
+                    </span>
+                );
+                counter++;
+            }
+
+            game = (
+                <div className={styles.gameInfo}>
+                    <h2>Game Info (ID: {this.state.game.id})</h2>
+
+                    <GameScore team1={this.state.game.team1} team2={this.state.game.team2} />
+
+                    <b>Date:</b> {this.state.game.date}<br />
+                    <b>Location:</b> {this.state.game.location}<br />
+                    <b>Head Official:</b> {this.state.game.headOff}<br />
+                    <b>Officials:</b> {officials}<br />
+
+                    <button className={styles.editButton} onClick={this.handleEditButton}>
+                        Edit Location
+                    </button>
+                </div>
             );
         }
 
@@ -90,7 +106,7 @@ export default class Games extends Component {
                     />
                 </form>
 
-                {gameInfoComp}
+                {game}
             </div>
         );
     }

@@ -1,26 +1,15 @@
 /**
- * GameInfo.jsx
+ * GameScore.jsx
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
 
 import React, { Component } from 'react';
-import styles from './GameInfo.css';
+import styles from './GameScore.css';
 
-export default class GameInfo extends Component {
+export default class GameScore extends Component {
     render() {
-        const officials = [];
         let winner = 'none';
-
-        let counter = 0;
-        for (const official of this.props.officials) {
-            officials.push(
-                <span className={styles.official} key={counter}>
-                    {official}
-                </span>
-            );
-            counter++;
-        }
 
         if (this.props.team1.score > this.props.team2.score) {
             winner = '1';
@@ -29,9 +18,7 @@ export default class GameInfo extends Component {
         }
 
         return (
-            <div className={styles.gameInfo}>
-                <h2>Game Info (ID: {this.props.gameId})</h2>
-
+            <div>
                 <div className={winner === '1' ? styles.winnerBox : styles.teamBox}>
                     <div className={styles.score}>{this.props.team1.score}</div>
                     <div className={styles.teamDetails}>
@@ -51,15 +38,6 @@ export default class GameInfo extends Component {
                         {this.props.team2.city}
                     </div>
                 </div>
-
-                <b>Date:</b> {this.props.date}<br />
-                <b>Location:</b> {this.props.location}<br />
-                <b>Head Official:</b> {this.props.headOff}<br />
-                <b>Officials:</b> {officials}<br />
-
-                <button className={styles.editButton} onClick={this.props.handleEdit}>
-                    Edit Location
-                </button>
             </div>
         );
     }

@@ -1,3 +1,9 @@
+/**
+ * index.js
+ * Jordan Mathewson - 250868197
+ * CS3319A - Assignment #3
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 

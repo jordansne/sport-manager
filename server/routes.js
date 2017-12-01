@@ -30,7 +30,7 @@ router.use('/teams', teamsRoute);
 
 // If the URL was not found
 router.use((req, res) => {
-    res.status(404).send('404: Not found');
+    res.status(404).json({ error: 'Resource not found' });
 });
 
 module.exports = router;

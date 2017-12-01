@@ -4,6 +4,8 @@
  * CS3319A - Assignment #3
  */
 
+require('dotenv').config();
+
 const server = require('./server.js');
 const PORT = process.env.PORT || 8081;
 

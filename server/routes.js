@@ -6,11 +6,15 @@
 
 const express = require('express');
 const router = express.Router();
+const bodyParser = require('body-parser');
 
 const gamesRoute =     require('./routes/games');
 const leafsRoute =     require('./routes/leafs');
 const officialsRoute = require('./routes/officials');
 const teamsRoute =     require('./routes/teams');
+
+// Parse body's of requests to JSON
+router.use(bodyParser.json());
 
 // Log all API requests
 router.use((req, res, next) => {

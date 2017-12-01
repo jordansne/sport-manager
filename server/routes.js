@@ -18,7 +18,12 @@ router.use(bodyParser.json());
 
 // Log all API requests
 router.use((req, res, next) => {
-    console.log('Received API request \'' + req.originalUrl + '\' from: ' + req.hostname);
+    console.log('****** Incoming API request ******');
+    console.log('Sender: ' + req.hostname);
+    console.log('URL: ' + req.originalUrl);
+    console.log('Body:');
+    console.log(req.body);
+    console.log('**********************************');
     next();
 });
 

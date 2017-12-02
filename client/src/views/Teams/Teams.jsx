@@ -74,9 +74,27 @@ export default class Teams extends Component {
     handleCreate(event) {
         event.preventDefault();
 
-        // TODO Send a POST request to create a new team
+        axios.post(URL_PREFIX + '/api/teams', this.state.createTeam).then((response) => {
+            alert('New team created.');
+            // Update the team list
+            this.updateTeams('name-down');
+            // Clear the create team form
+            this.setState({
+                createTeam: {
+                    name: '',
+                    id: '',
+                    city: '',
+                },
+                teamList: this.state.teamList
+            });
 
-        this.updateTeams('name-down');
+        }).catch((error) => {
+            if (error.response.status === 403) {
+                alert('Team values must not be blank!');
+            } else if (error.response.status === 409) {
+                alert('A team with that ID already exists! Try with a different ID.');
+            }
+        });
     }
 
     updateTeams(sortBy) {

@@ -25,9 +25,7 @@ export default class LeafGames extends Component {
 
         for (let game = 0; game < this.state.games.length; game++) {
             gameComps.push(
-                <div>
-                    <GameScore team1={this.state.games[game].team1} team2={this.state.games[game].team2} key={game}/>
-                </div>
+                <GameScore team1={this.state.games[game].team1} team2={this.state.games[game].team2} key={game}/>
             );
         }
 

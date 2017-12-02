@@ -9,8 +9,26 @@ const games = express.Router();
 const database = require('../database');
 const logger = require('../logger');
 
+/**
+ * GET request for retrieving a list of games.
+ */
 games.get('/', (req, res) => {
-    res.send('Games end point');
+    database.query('SELECT * FROM Game').then((result) => {
+        // Rename attributes and only send rows
+        const payload = result.rows.map((row) => {
+            return {
+                id: row.gameid,
+                date: row.gamedate,
+                headoff: row.headofficial,
+                city: row.city
+            };
+        });
+
+        res.json({ games: payload });
+    }).catch((err) => {
+        logger.log('error', 'Error in query:', { error: err });
+        res.status(500).json({ error: 'Internal Error' });
+    });
 });
 
 /**

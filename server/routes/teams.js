@@ -103,4 +103,19 @@ teams.post('/', (req, res) => {
     });
 });
 
+/**
+ * POST request for deleting teams.
+ * (Use POST instead of delete because DELETE is blocked on CS3319 servers)
+ */
+teams.post('/:id/delete', (req, res) => {
+    const id = req.params.id;
+
+    database.query('DELETE FROM Team WHERE teamid=$1', [ id ]).then((result) => {
+        res.json({ success: {} });
+    }).catch((err) => {
+        logger.log('error', 'Error accessing database', { error: err });
+        res.status(500).json({ error: 'Internal error' });
+    });
+});
+
 module.exports = teams;

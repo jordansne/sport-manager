@@ -90,7 +90,7 @@ teams.post('/', (req, res) => {
         return;
     }
 
-    database.query('INSERT INTO Team VALUES ($1, $2, $3)', [ id, name, city ]).then((result) => {
+    database.query('INSERT INTO Team VALUES ($1, $2, $3)', [ id, city, name ]).then((result) => {
         res.status(201).json({ success: {} });
     }).catch((err) => {
         // Catch when a team already exists with the specified ID

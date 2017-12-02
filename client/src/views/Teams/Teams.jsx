@@ -26,6 +26,7 @@ export default class Teams extends Component {
         this.handleIdChange = this.handleIdChange.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -94,6 +95,16 @@ export default class Teams extends Component {
             } else if (error.response.status === 409) {
                 alert('A team with that ID already exists! Try with a different ID.');
             }
+        });
+    }
+
+    handleDelete(id) {
+        event.preventDefault();
+
+        axios.post(URL_PREFIX + '/api/teams/' + id + '/delete').then((response) => {
+            alert('Team deleted.');
+            // Update the team list
+            this.updateTeams('name-down');
         });
     }
 
@@ -186,7 +197,7 @@ export default class Teams extends Component {
                         City &uarr;
                     </button>
                 </div>
-                <TeamList teamList={this.state.teamList} />
+                <TeamList teamList={this.state.teamList} deleteTeam={this.handleDelete} />
             </div>
         );
     }

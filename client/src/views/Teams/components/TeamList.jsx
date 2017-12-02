@@ -15,7 +15,7 @@ export default class TeamList extends Component {
         let counter = 0;
         for (const team of this.props.teamList) {
             teams.push(
-                <TeamListItem name={team.name} id={team.id} city={team.city} key={counter} />
+                <TeamListItem name={team.name} id={team.id} city={team.city} key={counter} deleteTeam={this.props.deleteTeam}/>
             );
             counter++;
         }

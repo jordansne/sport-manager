@@ -8,6 +8,17 @@ import React, { Component } from 'react';
 import styles from './TeamListItem.css';
 
 export default class TeamListItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    handleDelete(event) {
+        event.preventDefault();
+        this.props.deleteTeam(this.props.id);
+    }
+
     render() {
         return (
             <li className={styles.item}>
@@ -20,7 +31,7 @@ export default class TeamListItem extends Component {
                 <span className={styles.cityAttribute}>
                     {this.props.city}
                 </span>
-                <button className={styles.deleteButton}>Delete</button>
+                <button className={styles.deleteButton} onClick={this.handleDelete}>Delete</button>
             </li>
         );
     }

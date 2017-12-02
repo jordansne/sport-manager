@@ -101,11 +101,13 @@ export default class Teams extends Component {
     handleDelete(id) {
         event.preventDefault();
 
-        axios.post(URL_PREFIX + '/api/teams/' + id + '/delete').then((response) => {
-            alert('Team deleted.');
-            // Update the team list
-            this.updateTeams('name-down');
-        });
+        if (confirm('Are you sure you want to delete team with ID: ' + id + '?')) {
+            axios.post(URL_PREFIX + '/api/teams/' + id + '/delete').then((response) => {
+                alert('Team ' + id + ' deleted.');
+                // Update the team list
+                this.updateTeams('name-down');
+            });
+        }
     }
 
     updateTeams(sortBy) {

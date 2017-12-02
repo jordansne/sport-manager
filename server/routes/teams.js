@@ -71,4 +71,36 @@ teams.get('/', (req, res) => {
     });
 });
 
+/**
+ * POST request for creating new teams.
+ */
+teams.post('/', (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const city = req.body.city;
+
+    // Ensure attributes are provided
+    if (id === undefined || name === undefined || city === undefined) {
+        res.status(400).json({ error: 'id, name and/or city was not specified' });
+        return;
+
+    // Ensure attributes are non-empty
+    } else if (id === '' || name === '' || city === '') {
+        res.status(403).json({ error: 'id, name and/or city can not be empty' });
+        return;
+    }
+
+    database.query('INSERT INTO Team VALUES ($1, $2, $3)', [ id, name, city ]).then((result) => {
+        res.status(201).json({ success: {} });
+    }).catch((err) => {
+        // Catch when a team already exists with the specified ID
+        if (err.code === '23505') {
+            res.status(409).json({ error: 'team already exists with that ID' });
+        } else {
+            logger.log('error', 'Error accessing database', { error: err });
+            res.status(500).json({ error: 'Internal error' });
+        }
+    });
+});
+
 module.exports = teams;

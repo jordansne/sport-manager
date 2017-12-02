@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import OfficialListItem from '../../../components/OfficialItem.jsx';
 import styles from './OfficialList.css';
 
@@ -18,7 +19,18 @@ export default class OfficialList extends Component {
     }
 
     componentDidMount() {
-        // TODO Make get request to retrieve officials
+        const officials = [];
+
+        // Make GET request to retrieve official list by last name
+        axios.get(URL_PREFIX + '/api/officials').then((response) => {
+            for (const official of response.data.officials) {
+                officials.push(official);
+            }
+
+            this.setState({
+                officialList: officials
+            });
+        });
     }
 
     render() {

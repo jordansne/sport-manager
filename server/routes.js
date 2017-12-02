@@ -7,6 +7,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const logger = require('./logger');
 
 const gamesRoute =     require('./routes/games');
 const leafsRoute =     require('./routes/leafs');
@@ -18,12 +19,7 @@ router.use(bodyParser.json());
 
 // Log all API requests
 router.use((req, res, next) => {
-    console.log('****** Incoming API request ******');
-    console.log('Sender: ' + req.hostname);
-    console.log('URL: ' + req.originalUrl);
-    console.log('Body:');
-    console.log(req.body);
-    console.log('**********************************');
+    logger.log('info', 'Incoming Request', { sender: req.hostname, url: req.originalUrl, body: req.body });
     next();
 });
 

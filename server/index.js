@@ -6,9 +6,10 @@
 
 require('dotenv').config();
 
-const server = require('./server.js');
+const server = require('./server');
+const logger = require('./logger');
 const PORT = process.env.PORT || 8081;
 
 server.listen(PORT, () => {
-    console.log('Server now listening on port ' + PORT);
+    logger.log('info', 'Server now listening on port: ' + PORT + ' with prefix URL: ' + process.env.URL_PREFIX);
 });

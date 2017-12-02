@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import TeamList from './components/TeamList.jsx';
 import styles from './Teams.css';
 
@@ -80,16 +81,32 @@ export default class Teams extends Component {
 
     updateTeams(sortBy) {
         const teams = [];
+        let requestURL = URL_PREFIX + '/api/teams';
 
-        // TODO Send a GET request to retrieve team list
+        if (sortBy === 'name-asc') {
+            requestURL += '?sort[type]=name&sort[dir]=asc';
+        } else if (sortBy === 'name-dsc') {
+            requestURL += '?sort[type]=name&sort[dir]=dsc';
+        } else if (sortBy === 'city-asc') {
+            requestURL += '?sort[type]=city&sort[dir]=asc';
+        } else if (sortBy === 'city-dsc') {
+            requestURL += '?sort[type]=city&sort[dir]=dsc';
+        }
 
-        this.setState({
-            createTeam: {
-                name: this.state.createTeam.name,
-                id: this.state.createTeam.id,
-                city: this.state.createTeam.city
-            },
-            teamList: teams
+        // Make GET request to retrieve team list
+        axios.get(requestURL).then((response) => {
+            for (const team of response.data.teams) {
+                teams.push(team);
+            }
+
+            this.setState({
+                createTeam: {
+                    name: this.state.createTeam.name,
+                    id: this.state.createTeam.id,
+                    city: this.state.createTeam.city
+                },
+                teamList: teams
+            });
         });
     }
 
@@ -138,16 +155,16 @@ export default class Teams extends Component {
                 <h2>Team List</h2>
                 <div className={styles.sortOptions}>
                     Sort by:
-                    <button className={styles.sortButton} onClick={() => this.updateTeams('name-down')}>
+                    <button className={styles.sortButton} onClick={() => this.updateTeams('name-asc')}>
                         Name &darr;
                     </button>
-                    <button className={styles.sortButton} onClick={() => this.updateTeams('name-up')}>
+                    <button className={styles.sortButton} onClick={() => this.updateTeams('name-dsc')}>
                         Name &uarr;
                     </button>
-                    <button className={styles.sortButton} onClick={() => this.updateTeams('city-down')}>
+                    <button className={styles.sortButton} onClick={() => this.updateTeams('city-asc')}>
                         City &darr;
                     </button>
-                    <button className={styles.sortButton} onClick={() => this.updateTeams('city-up')}>
+                    <button className={styles.sortButton} onClick={() => this.updateTeams('city-dsc')}>
                         City &uarr;
                     </button>
                 </div>

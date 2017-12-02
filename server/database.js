@@ -6,7 +6,10 @@
 
 const logger = require('./logger');
 const { Pool } = require('pg');
-const pool = new Pool();
+const pool = new Pool({
+    // Set max postgres connections to 1 to prevent too many connections error
+    max: 1
+});
 
 module.exports = {
     // Promise returning function for making SQL queries

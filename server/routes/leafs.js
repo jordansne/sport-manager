@@ -6,9 +6,63 @@
 
 const express = require('express');
 const leafs = express.Router();
+const database = require('../database');
+const logger = require('../logger');
 
-leafs.get('/', (req, res) => {
-    res.send('Leafs end point');
+const LEAFS_TEAM_ID = 12;
+
+/**
+ * GET request for retrieving all of the leaf games.
+ */
+leafs.get('/games', (req, res) => {
+    database.query('SELECT gameid FROM GameInfo WHERE teamid=$1', [ LEAFS_TEAM_ID ]).then((result) => {
+        const payload = [];
+
+        logger.log('info', 'rows', { rows: result.rows });
+
+        // Keep track of the queries in a organized manner
+        const queries = [];
+        for (const row of result.rows) {
+            queries.push(
+                // Retrieve the two teams that played that game
+                database.query('SELECT teamid, teamscore FROM GameInfo WHERE gameid=$1', [ row.gameid ]).then((result) => {
+                    const game = {
+                        team1: {
+                            id: result.rows[0].teamid,
+                            score: result.rows[0].teamscore
+                        },
+                        team2: {
+                            id: result.rows[1].teamid,
+                            score: result.rows[1].teamscore
+                        }
+                    };
+
+                    // Retrieve team 1's name & home city
+                    return database.query('SELECT * FROM Team WHERE teamid=$1', [ game.team1.id ]).then((result) => {
+                        game.team1.name = result.rows[0].teamname;
+                        game.team1.city = result.rows[0].city;
+
+                        // Retrieve team 2's name & home city
+                        return database.query('SELECT * FROM Team WHERE teamid=$1', [ game.team2.id ]);
+                    }).then((result) => {
+                        game.team2.name = result.rows[0].teamname;
+                        game.team2.city = result.rows[0].city;
+
+                        // Push the game object to the payload to be sent
+                        payload.push(game);
+                    });
+                })
+            );
+        }
+
+        // Wait until all queries for each game are finished and then send the payload
+        return Promise.all(queries).then(() => {
+            res.send(payload);
+        });
+    }).catch((err) => {
+        logger.log('error', 'Error in query:', { error: err });
+        res.status(500).json({ error: 'Internal Error' });
+    });
 });
 
 module.exports = leafs;

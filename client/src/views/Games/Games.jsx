@@ -42,8 +42,15 @@ export default class Games extends Component {
         let newCity = prompt('Edit the location for game #' + this.state.game.id, this.state.game.location);
 
         if (newCity !== null && newCity !== '' && newCity !== this.state.game.location) {
-            // TODO Send post request to update location of game
-            this.showGame();
+            axios.post(URL_PREFIX + '/api/games/' + this.state.game.id, {
+                location: newCity
+            }).then((response) => {
+                alert('Location of game updated.');
+                // Update the game info
+                this.showGame(this.state.game.id);
+            });
+        } else {
+            alert('Location can\'t be empty!');
         }
     }
 

@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import GameScore from '../../../components/GameScore.jsx';
 import styles from './LeafGames.css';
 
@@ -17,7 +18,12 @@ export default class LeafGames extends Component {
         };
     }
     componentDidMount() {
-        // TODO Make GET request to find all Leafs games
+        // Make GET request to retrieve list of leaf games
+        axios.get(URL_PREFIX + '/api/leafs/games').then((response) => {
+            this.setState({
+                games: response.data
+            });
+        });
     }
 
     render() {

@@ -33,7 +33,7 @@ export default class Games extends Component {
 
     handleViewButton(event) {
         event.preventDefault();
-        this.showGame();
+        this.showGame(this.state.idInput);
     }
 
     handleEditButton(event) {
@@ -47,14 +47,14 @@ export default class Games extends Component {
         }
     }
 
-    showGame() {
-        if (this.state.idInput === '') {
+    showGame(id) {
+        if (id === '') {
             alert('Please specify a game ID to lookup');
             return;
         }
 
         // Make GET request to retrieve game information
-        axios.get(URL_PREFIX + '/api/games/' + this.state.idInput).then((response) => {
+        axios.get(URL_PREFIX + '/api/games/' + id).then((response) => {
             this.setState({
                 idInput: '',
                 game: response.data

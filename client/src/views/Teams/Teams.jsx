@@ -32,7 +32,7 @@ export default class Teams extends Component {
     }
 
     handleNameChange(event) {
-        const newName = event.target.value.toLowerCase();
+        const newName = event.target.value;
 
         this.setState({
             createTeam: {
@@ -45,7 +45,7 @@ export default class Teams extends Component {
     }
 
     handleIdChange(event) {
-        const newId = event.target.value.toLowerCase();
+        const newId = event.target.value;
 
         this.setState({
             createTeam: {
@@ -58,7 +58,7 @@ export default class Teams extends Component {
     }
 
     handleCityChange(event) {
-        const newCity = event.target.value.toLowerCase();
+        const newCity = event.target.value;
 
         this.setState({
             createTeam: {

@@ -5,16 +5,17 @@
  */
 
 const express = require('express');
+const app = express();
 const path = require('path');
 
-const app = express();
 const routes = require('./routes');
+const URL_PREFIX = process.env.URL_PREFIX || '';
 
 // Serve static files (bundle.js)
-app.use(express.static(path.resolve(__dirname, '..', 'dist')));
+app.use(URL_PREFIX, express.static(path.resolve(__dirname, '..', 'dist')));
 
 // Route API request to routes.js
-app.use('/api', routes);
+app.use(URL_PREFIX + '/api', routes);
 
 // Serve the index file for all paths
 app.get('*', (req, res) => {

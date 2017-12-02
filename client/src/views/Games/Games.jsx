@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import GameScore from '../../components/GameScore.jsx';
 import styles from './Games.css';
 
@@ -47,7 +48,22 @@ export default class Games extends Component {
     }
 
     showGame() {
-        // TODO Send get request for the given game id
+        if (this.state.idInput === '') {
+            alert('Please specify a game ID to lookup');
+            return;
+        }
+
+        // Make GET request to retrieve game information
+        axios.get(URL_PREFIX + '/api/games/' + this.state.idInput).then((response) => {
+            this.setState({
+                idInput: '',
+                game: response.data
+            });
+        }).catch((error) => {
+            if (error.response.status === 404) {
+                alert('Could not find game that ID!');
+            }
+        });
     }
 
     render() {

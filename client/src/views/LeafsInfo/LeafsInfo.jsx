@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import LeafGames from './components/LeafGames.jsx';
+import OfficialHeader from '../../components/OfficialHeader.jsx';
 import OfficialItem from '../../components/OfficialItem.jsx';
 import styles from './LeafsInfo.css';
 
@@ -74,12 +75,15 @@ export default class LeafsInfo extends Component {
                 <LeafGames />
 
                 <h2>Officiated Most Maple Leafs Games</h2>
+                <OfficialHeader />
                 {mostOfficiatedComp}
 
                 <h2>Officiated Most Maple Leafs Losses</h2>
+                <OfficialHeader />
                 {mostLossesComp}
 
                 <h2>Officiated Most Maple Leafs Wins</h2>
+                <OfficialHeader />
                 {mostWinsComp}
             </div>
         );

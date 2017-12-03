@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import OfficialHeader from '../../../components/OfficialHeader.jsx';
 import OfficialListItem from '../../../components/OfficialItem.jsx';
 import styles from './OfficialList.css';
 
@@ -52,20 +53,7 @@ export default class OfficialList extends Component {
 
         return (
             <div>
-                <div className={styles.header}>
-                    <span className={styles.idHeaderAttribute}>
-                        ID
-                    </span>
-                    <span className={styles.lastNameHeaderAttribute}>
-                        Last Name
-                    </span>
-                    <span className={styles.firstNameHeaderAttribute}>
-                        First Name
-                    </span>
-                    <span className={styles.homeHeaderAttribute}>
-                        Home City
-                    </span>
-                </div>
+                <OfficialHeader />
                 <ul className={styles.list}>
                     {officials}
                 </ul>

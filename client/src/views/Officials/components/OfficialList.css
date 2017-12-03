@@ -9,33 +9,3 @@
     width: 100%;
     font-size: 14px;
 }
-
-.header {
-    padding: 0 10px;
-    font-size: 14px;
-}
-
-.headerAttribute {
-    display: inline-block;
-    text-decoration: underline;
-}
-
-.idHeaderAttribute {
-    composes: headerAttribute;
-    width: 10%;
-}
-
-.lastNameHeaderAttribute {
-    composes: headerAttribute;
-    width: 30%;
-}
-
-.firstNameHeaderAttribute {
-    composes: headerAttribute;
-    width: 30%;
-}
-
-.homeHeaderAttribute {
-    composes: headerAttribute;
-    width: 30%;
-}

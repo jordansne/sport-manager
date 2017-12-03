@@ -93,4 +93,35 @@ leafs.get('/official/mostGames', (req, res) => {
     });
 });
 
+/**
+ * GET request for retrieving the official who officiated the most leaf wins.
+ */
+leafs.get('/official/mostWins', (req, res) => {
+    const queryString = (
+        'SELECT COUNT(Officiation.gameid), officialid from Officiation ' +
+        'JOIN Game ON Game.gameid = Officiation.gameid WHERE Game.gameid IN (' +
+            'SELECT info1.gameid From GameInfo info1 INNER JOIN (' +
+                'SELECT gameid, MAX(teamscore) AS teamscore FROM GameInfo GROUP BY gameid' +
+            ') info2 ON info1.gameid=info2.gameid AND info1.teamscore=info2.teamscore ' +
+            'WHERE teamid=$1' +
+        ') GROUP BY officialid LIMIT 1'
+    );
+
+    database.query(queryString, [ LEAFS_TEAM_ID ]).then((result) => {
+        return database.query('SELECT * FROM Official WHERE officialid=$1', [ result.rows[0].officialid ]);
+    }).then((result) => {
+        const payload = {
+            id: result.rows[0].officialid,
+            firstName: result.rows[0].fname,
+            lastName: result.rows[0].lname,
+            home: result.rows[0].homecity
+        };
+
+        res.json(payload);
+    }).catch((err) => {
+        logger.log('error', 'Error in query:', { error: err });
+        res.status(500).json({ error: 'Internal Error' });
+    });
+});
+
 module.exports = leafs;

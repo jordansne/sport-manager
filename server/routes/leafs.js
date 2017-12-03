@@ -65,4 +65,32 @@ leafs.get('/games', (req, res) => {
     });
 });
 
+/**
+ * GET request for retrieving the official who officiated the most leafs games.
+ */
+leafs.get('/official/mostGames', (req, res) => {
+    const queryString = (
+        'SELECT * FROM Official WHERE officialid IN (' +
+            'SELECT MAX(officialid) AS officialid FROM Officiation ' +
+            'JOIN Game ON Officiation.gameid=Game.gameid WHERE Game.gameid IN (' +
+                'SELECT gameid FROM GameInfo WHERE teamid=$1' +
+            ')' +
+        ')'
+    );
+
+    database.query(queryString, [ LEAFS_TEAM_ID ]).then((result) => {
+        const payload = {
+            id: result.rows[0].officialid,
+            firstName: result.rows[0].fname,
+            lastName: result.rows[0].lname,
+            home: result.rows[0].homecity
+        };
+
+        res.json(payload);
+    }).catch((err) => {
+        logger.log('error', 'Error in query:', { error: err });
+        res.status(500).json({ error: 'Internal Error' });
+    });
+});
+
 module.exports = leafs;

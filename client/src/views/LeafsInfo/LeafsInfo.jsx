@@ -41,7 +41,14 @@ export default class LeafsInfo extends Component {
             });
         });
 
-        // TODO Make GET request to find the official who officiated the most wins
+        // Make GET request to retrieve the official who officiated the most leaf losses
+        axios.get(URL_PREFIX + '/api/leafs/official/mostLosses').then((response) => {
+            this.setState({
+                mostOfficiated: this.state.mostOfficiated,
+                mostWins: this.state.mostWins,
+                mostLosses: response.data
+            });
+        });
     }
 
     render() {

@@ -113,8 +113,12 @@ teams.post('/:id/delete', (req, res) => {
     database.query('DELETE FROM Team WHERE teamid=$1', [ id ]).then((result) => {
         res.json({ success: {} });
     }).catch((err) => {
-        logger.log('error', 'Error accessing database', { error: err });
-        res.status(500).json({ error: 'Internal error' });
+        if (err.code === '23503') {
+            res.status(409).json({ error: 'cannot delete team: there exists a game that includes this team' });
+        } else {
+            logger.log('error', 'Error accessing database', { error: err });
+            res.status(500).json({ error: 'Internal error' });
+        }
     });
 });
 

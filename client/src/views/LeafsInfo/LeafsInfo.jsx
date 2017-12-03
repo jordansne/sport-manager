@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 import LeafGames from './components/LeafGames.jsx';
 import OfficialHeader from '../../components/OfficialHeader.jsx';
 import OfficialItem from '../../components/OfficialItem.jsx';
@@ -22,7 +23,14 @@ export default class LeafsInfo extends Component {
     }
 
     componentDidMount() {
-        // TODO Make GET request to find most officiated gameId
+        // Make GET request to retrieve the official who officiated the most leaf games
+        axios.get(URL_PREFIX + '/api/leafs/official/mostGames').then((response) => {
+            this.setState({
+                mostOfficiated: response.data,
+                mostWins: this.state.mostWins,
+                mostLosses: this.state.mostLosses
+            });
+        });
 
         // TODO Make GET request to the official who officiated the most losses
 

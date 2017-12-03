@@ -106,6 +106,10 @@ export default class Teams extends Component {
                 alert('Team ' + id + ' deleted.');
                 // Update the team list
                 this.updateTeams('name-down');
+            }).catch((error) => {
+                if (error.response.status === 409) {
+                    alert('Could not delete team! There exists a game in which this team takes part in.');
+                }
             });
         }
     }

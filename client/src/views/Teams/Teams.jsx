@@ -107,8 +107,6 @@ export default class Teams extends Component {
 
     // Handle delete button method
     handleDelete(id) {
-        event.preventDefault();
-
         // Show Yes/No confirm dialog before deleting the team
         if (confirm('Are you sure you want to delete team with ID: ' + id + '?')) {
             // Make POST request to delete the team

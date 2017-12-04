@@ -9,7 +9,6 @@ import Teams from './views/Teams/Teams.jsx';
 import Games from './views/Games/Games.jsx';
 import Officials from './views/Officials/Officials.jsx';
 import LeafsInfo from './views/LeafsInfo/LeafsInfo.jsx';
-import NotFound from './views/NotFound.jsx';
 import './App.css';
 
 export default class App extends Component {
@@ -37,8 +36,6 @@ export default class App extends Component {
             case 'leafsInfo':
                 newPage = <LeafsInfo />
                 break;
-            default:
-                newPage = <NotFound />
         }
 
         this.setState({

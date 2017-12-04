@@ -1,5 +1,5 @@
 /**
- * index.js
+ * index.js - Entry point module for the express server.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */

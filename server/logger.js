@@ -1,5 +1,5 @@
 /**
- * logger.js
+ * logger.js - Module for logging to the console and 'server.log'.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */

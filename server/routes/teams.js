@@ -1,5 +1,5 @@
 /**
- * teams.js
+ * teams.js - Module for handling all the /api/teams APIs.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -64,6 +64,7 @@ teams.get('/', (req, res) => {
             };
         });
 
+        // Send the team data
         res.json({ teams: payload });
     }).catch((err) => {
         logger.log('error', 'Error accessing database', { error: err });
@@ -91,10 +92,12 @@ teams.post('/', (req, res) => {
     }
 
     database.query('INSERT INTO Team VALUES ($1, $2, $3)', [ id, city, name ]).then((result) => {
+        // Send response to indiciate success creating new team
         res.status(201).json({ success: {} });
     }).catch((err) => {
         // Catch when a team already exists with the specified ID
         if (err.code === '23505') {
+            // Send 409 Conflict response if that happens
             res.status(409).json({ error: 'team already exists with that ID' });
         } else {
             logger.log('error', 'Error accessing database', { error: err });
@@ -113,7 +116,9 @@ teams.post('/:id/delete', (req, res) => {
     database.query('DELETE FROM Team WHERE teamid=$1', [ id ]).then((result) => {
         res.json({ success: {} });
     }).catch((err) => {
+        // Catch when a team could not be deleted due to a game existing that references the team
         if (err.code === '23503') {
+            // Send 409 Conflict response if that happens
             res.status(409).json({ error: 'cannot delete team: there exists a game that includes this team' });
         } else {
             logger.log('error', 'Error accessing database', { error: err });

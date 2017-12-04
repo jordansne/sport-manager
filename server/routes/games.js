@@ -1,5 +1,5 @@
 /**
- * games.js
+ * games.js - Module for handling all the /api/games APIs.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -24,6 +24,7 @@ games.get('/', (req, res) => {
             };
         });
 
+        // Send the game data
         res.json({ games: payload });
     }).catch((err) => {
         logger.log('error', 'Error in query:', { error: err });
@@ -82,10 +83,11 @@ games.get('/:id', (req, res) => {
             return row.officialid;
         });
 
-        // Send the entire payload object
+        // Send all the payload data
         res.send(payload);
     }).catch((err) => {
         if (err.status === 404) {
+            // Send 404 Not found error if the game doesn't exist
             res.status(404).json({});
         } else {
             logger.log('error', 'Error accessing database', { error: err });
@@ -113,6 +115,7 @@ games.post('/:id', (req, res) => {
     }
 
     database.query('UPDATE Game SET city=$1 WHERE gameid=$2', [ location, req.params.id ]).then((result) => {
+        // Send response to indiciate success updating
         res.json({ success: {} });
     }).catch((err) => {
         logger.log('error', 'Error accessing database', { error: err });

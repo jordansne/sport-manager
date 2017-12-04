@@ -1,5 +1,5 @@
 /**
- * leafs.js
+ * leafs.js - Module for handling all the /api/leafs APIs.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -9,6 +9,7 @@ const leafs = express.Router();
 const database = require('../database');
 const logger = require('../logger');
 
+// Constant for the Maples Leafs ID in the database
 const LEAFS_TEAM_ID = 12;
 
 /**
@@ -17,8 +18,6 @@ const LEAFS_TEAM_ID = 12;
 leafs.get('/games', (req, res) => {
     database.query('SELECT gameid FROM GameInfo WHERE teamid=$1', [ LEAFS_TEAM_ID ]).then((result) => {
         const payload = [];
-
-        logger.log('info', 'rows', { rows: result.rows });
 
         // Keep track of the queries in a organized manner
         const queries = [];
@@ -57,6 +56,7 @@ leafs.get('/games', (req, res) => {
 
         // Wait until all queries for each game are finished and then send the payload
         return Promise.all(queries).then(() => {
+            // Send the game data
             res.send(payload);
         });
     }).catch((err) => {
@@ -79,6 +79,7 @@ leafs.get('/official/mostGames', (req, res) => {
     );
 
     database.query(queryString, [ LEAFS_TEAM_ID ]).then((result) => {
+        // Rename attributes of first row (as only one result)
         const payload = {
             id: result.rows[0].officialid,
             firstName: result.rows[0].fname,
@@ -86,6 +87,7 @@ leafs.get('/official/mostGames', (req, res) => {
             home: result.rows[0].homecity
         };
 
+        // Send the official data
         res.json(payload);
     }).catch((err) => {
         logger.log('error', 'Error in query:', { error: err });
@@ -110,6 +112,7 @@ leafs.get('/official/mostWins', (req, res) => {
     database.query(queryString, [ LEAFS_TEAM_ID ]).then((result) => {
         return database.query('SELECT * FROM Official WHERE officialid=$1', [ result.rows[0].officialid ]);
     }).then((result) => {
+        // Rename attributes of first row (as only one result)
         const payload = {
             id: result.rows[0].officialid,
             firstName: result.rows[0].fname,
@@ -117,6 +120,7 @@ leafs.get('/official/mostWins', (req, res) => {
             home: result.rows[0].homecity
         };
 
+        // Send the official data
         res.json(payload);
     }).catch((err) => {
         logger.log('error', 'Error in query:', { error: err });
@@ -141,6 +145,7 @@ leafs.get('/official/mostLosses', (req, res) => {
     database.query(queryString, [ LEAFS_TEAM_ID ]).then((result) => {
         return database.query('SELECT * FROM Official WHERE officialid=$1', [ result.rows[0].officialid ]);
     }).then((result) => {
+        // Rename attributes of first row (as only one result)
         const payload = {
             id: result.rows[0].officialid,
             firstName: result.rows[0].fname,
@@ -148,6 +153,7 @@ leafs.get('/official/mostLosses', (req, res) => {
             home: result.rows[0].homecity
         };
 
+        // Send the official data
         res.json(payload);
     }).catch((err) => {
         logger.log('error', 'Error in query:', { error: err });

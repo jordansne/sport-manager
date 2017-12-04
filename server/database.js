@@ -1,5 +1,5 @@
 /**
- * database.js
+ * database.js - Module for making database queries.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -24,13 +24,18 @@ module.exports = {
             return client.query(queryString, params).then((result) => {
                 logger.log('info', 'Query success');
 
+                // Disconnect from the database
                 client.release();
+                // Return the result
                 return result;
+
             // Catch any errors that could occur with making the query
             }).catch((err) => {
                 logger.log('error', 'Failed to make query', { error: err });
 
+                // Disconnect from the database
                 client.release();
+                // Pass the error to the caller to handle
                 throw err;
             });
         });

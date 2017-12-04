@@ -1,5 +1,5 @@
 /**
- * officials.js
+ * officials.js - Module for handling all the /api/officials APIs.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -24,6 +24,7 @@ officials.get('/', (req, res) => {
             };
         });
 
+        // Send the official data
         res.json({ officials: payload });
     }).catch((err) => {
         logger.log('error', 'Error accessing database', { error: err });

@@ -16,79 +16,64 @@ export default class LeafsInfo extends Component {
         super(props);
 
         this.state = {
-            mostOfficiated: null,
-            mostWins: null,
-            mostLosses: null
+            officialOption: 'mostGames',
+            officialComp: null
         };
+
+        this.handleOfficialChange = this.handleOfficialChange.bind(this);
     }
 
     componentDidMount() {
-        // Make GET request to retrieve the official who officiated the most leaf games
-        axios.get(URL_PREFIX + '/api/leafs/official/mostGames').then((response) => {
-            this.setState({
-                mostOfficiated: response.data,
-                mostWins: this.state.mostWins,
-                mostLosses: this.state.mostLosses
-            });
-        });
+        this.loadOfficial();
+    }
 
-        // Make GET request to retrieve the official who officiated the most leaf wins
-        axios.get(URL_PREFIX + '/api/leafs/official/mostWins').then((response) => {
-            this.setState({
-                mostOfficiated: this.state.mostOfficiated,
-                mostWins: response.data,
-                mostLosses: this.state.mostLosses
-            });
+    handleOfficialChange(event) {
+        this.setState({
+            officialOption: event.target.value,
+            officialComp: this.state.officialComp
+        }, () => {
+            this.loadOfficial();
         });
+    }
 
-        // Make GET request to retrieve the official who officiated the most leaf losses
-        axios.get(URL_PREFIX + '/api/leafs/official/mostLosses').then((response) => {
+    loadOfficial() {
+        let apiUrl = URL_PREFIX;
+        let titleComp = null;
+
+        if (this.state.officialOption === 'mostGames') {
+            apiUrl += '/api/leafs/official/mostGames';
+            titleComp = <h2>Officiated Most Maple Leafs Games</h2>;
+
+        } else if (this.state.officialOption === 'mostWins') {
+            apiUrl += '/api/leafs/official/mostWins';
+            titleComp = <h2>Officiated Most Maple Leafs Wins</h2>;
+
+        } else if (this.state.officialOption == 'mostLosses') {
+            apiUrl += '/api/leafs/official/mostLosses';
+            titleComp = <h2>Officiated Most Maple Leafs Losses</h2>;
+        }
+
+        // Make GET request to retrieve the selected official information
+        axios.get(apiUrl).then((response) => {
             this.setState({
-                mostOfficiated: this.state.mostOfficiated,
-                mostWins: this.state.mostWins,
-                mostLosses: response.data
+                officialOption: this.state.officialOption,
+                officialComp: (
+                    <div>
+                        {titleComp}
+                        <OfficialHeader />
+                        <OfficialItem
+                            id={response.data.id}
+                            lastName={response.data.lastName}
+                            firstName={response.data.firstName}
+                            home={response.data.home}
+                        />
+                    </div>
+                )
             });
         });
     }
 
     render() {
-        let mostOfficiatedComp = <p>Loading..</p>;
-        let mostWinsComp = <p>Loading..</p>;
-        let mostLossesComp = <p>Loading..</p>;
-
-        if (this.state.mostOfficiated !== null) {
-            mostOfficiatedComp = (
-                <OfficialItem
-                    id={this.state.mostOfficiated.id}
-                    lastName={this.state.mostOfficiated.lastName}
-                    firstName={this.state.mostOfficiated.firstName}
-                    home={this.state.mostOfficiated.home}
-                />
-            );
-        }
-
-        if (this.state.mostWins !== null) {
-            mostWinsComp = (
-                <OfficialItem
-                    id={this.state.mostWins.id}
-                    lastName={this.state.mostWins.lastName}
-                    firstName={this.state.mostWins.firstName}
-                    home={this.state.mostWins.home}
-                />
-            );
-        }
-
-        if (this.state.mostLosses !== null) {
-            mostLossesComp = (
-                <OfficialItem
-                    id={this.state.mostLosses.id}
-                    lastName={this.state.mostLosses.lastName}
-                    firstName={this.state.mostLosses.firstName}
-                    home={this.state.mostLosses.home}
-                />
-            );
-        }
-
         return (
             <div>
                 <h1>Leafs Information</h1>
@@ -96,17 +81,16 @@ export default class LeafsInfo extends Component {
                 <h2>Maple Leafs Games</h2>
                 <LeafGames />
 
-                <h2>Officiated Most Maple Leafs Games</h2>
-                <OfficialHeader />
-                {mostOfficiatedComp}
+                <h2>Official Information</h2>
+                <form onSubmit={this.handleOfficial}>
+                    <select value={this.state.officialOption} onChange={this.handleOfficialChange}>
+                        <option value='mostGames'>Most Leaf Games Officiated</option>
+                        <option value='mostWins'>Most Leaf Wins Officiated</option>
+                        <option value='mostLosses'>Most Leaf Losses Officiated</option>
+                    </select>
+                </form>
 
-                <h2>Officiated Most Maple Leafs Losses</h2>
-                <OfficialHeader />
-                {mostLossesComp}
-
-                <h2>Officiated Most Maple Leafs Wins</h2>
-                <OfficialHeader />
-                {mostWinsComp}
+                {this.state.officialComp}
             </div>
         );
     }

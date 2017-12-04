@@ -21,7 +21,7 @@ export default class LeafGames extends Component {
         // Make GET request to retrieve list of leaf games
         axios.get(URL_PREFIX + '/api/leafs/games').then((response) => {
             this.setState({
-                games: response.data
+                games: response.data.games
             });
         });
     }

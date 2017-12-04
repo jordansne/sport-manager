@@ -57,7 +57,7 @@ leafs.get('/games', (req, res) => {
         // Wait until all queries for each game are finished and then send the payload
         return Promise.all(queries).then(() => {
             // Send the game data
-            res.send(payload);
+            res.send({ games: payload });
         });
     }).catch((err) => {
         logger.log('error', 'Error in query:', { error: err });

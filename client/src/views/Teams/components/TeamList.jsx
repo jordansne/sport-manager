@@ -1,5 +1,5 @@
 /**
- * TeamList.jsx
+ * TeamList.jsx - Component for displaying a team list.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -12,6 +12,7 @@ export default class TeamList extends Component {
     render() {
         const teams = [];
 
+        // Display a TeamListItem component for each team
         let counter = 0;
         for (const team of this.props.teamList) {
             teams.push(

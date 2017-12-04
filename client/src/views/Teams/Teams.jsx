@@ -1,5 +1,5 @@
 /**
- * Teams.jsx
+ * Teams.jsx - Teams page main file.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -22,6 +22,7 @@ export default class Teams extends Component {
             teamList: []
         };
 
+        // Allow for using 'this' in callbacks
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleIdChange = this.handleIdChange.bind(this);
         this.handleCityChange = this.handleCityChange.bind(this);
@@ -30,9 +31,11 @@ export default class Teams extends Component {
     }
 
     componentDidMount() {
+        // Display the teams
         this.updateTeams();
     }
 
+    // React name input change handler
     handleNameChange(event) {
         const newName = event.target.value;
 
@@ -46,6 +49,7 @@ export default class Teams extends Component {
         });
     }
 
+    // React id input change handler
     handleIdChange(event) {
         const newId = event.target.value;
 
@@ -59,6 +63,7 @@ export default class Teams extends Component {
         });
     }
 
+    // React city input change handler
     handleCityChange(event) {
         const newCity = event.target.value;
 
@@ -72,9 +77,11 @@ export default class Teams extends Component {
         });
     }
 
+    // React create button handler
     handleCreate(event) {
         event.preventDefault();
 
+        // Make POST request to create the new team
         axios.post(URL_PREFIX + '/api/teams', this.state.createTeam).then((response) => {
             alert('New team created.');
             // Update the team list
@@ -98,14 +105,18 @@ export default class Teams extends Component {
         });
     }
 
+    // Handle delete button method
     handleDelete(id) {
         event.preventDefault();
 
+        // Show Yes/No confirm dialog before deleting the team
         if (confirm('Are you sure you want to delete team with ID: ' + id + '?')) {
+            // Make POST request to delete the team
             axios.post(URL_PREFIX + '/api/teams/' + id + '/delete').then((response) => {
                 alert('Team ' + id + ' deleted.');
                 // Update the team list
                 this.updateTeams('name-down');
+
             }).catch((error) => {
                 if (error.response.status === 409) {
                     alert('Could not delete team! There exists a game in which this team takes part in.');
@@ -114,10 +125,12 @@ export default class Teams extends Component {
         }
     }
 
+    // Retrieves the team list from the server
     updateTeams(sortBy) {
         const teams = [];
         let requestURL = URL_PREFIX + '/api/teams';
 
+        // Set the corresponding API call depending on which sorting method the user has chosen
         if (sortBy === 'name-asc') {
             requestURL += '?sort[type]=name&sort[dir]=asc';
         } else if (sortBy === 'name-dsc') {
@@ -134,6 +147,7 @@ export default class Teams extends Component {
                 teams.push(team);
             }
 
+            // Update the UI
             this.setState({
                 createTeam: {
                     name: this.state.createTeam.name,

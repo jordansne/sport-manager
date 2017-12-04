@@ -1,5 +1,5 @@
 /**
- * TeamListItem.jsx
+ * TeamListItem.jsx - Component for displaying a team in a team list.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -11,11 +11,14 @@ export default class TeamListItem extends Component {
     constructor(props) {
         super(props);
 
+        // Allow for using 'this' in callback
         this.handleDelete = this.handleDelete.bind(this);
     }
 
+    // Handle delete button method
     handleDelete(event) {
         event.preventDefault();
+        // Call parent component's method
         this.props.deleteTeam(this.props.id);
     }
 

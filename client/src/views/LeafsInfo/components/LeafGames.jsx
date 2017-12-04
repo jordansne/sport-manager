@@ -1,5 +1,5 @@
 /**
- * LeafGames.jsx
+ * LeafGames.jsx - Component for displaying a list of leaf games.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -17,9 +17,11 @@ export default class LeafGames extends Component {
             games: []
         };
     }
+
     componentDidMount() {
         // Make GET request to retrieve list of leaf games
         axios.get(URL_PREFIX + '/api/leafs/games').then((response) => {
+            // Update the UI
             this.setState({
                 games: response.data.games
             });
@@ -29,6 +31,7 @@ export default class LeafGames extends Component {
     render() {
         const gameComps = [];
 
+        // Display a GameScore component for each game
         for (let game = 0; game < this.state.games.length; game++) {
             gameComps.push(
                 <GameScore team1={this.state.games[game].team1} team2={this.state.games[game].team2} key={game}/>

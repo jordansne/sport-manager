@@ -1,5 +1,5 @@
 /**
- * OfficialHeader.jsx
+ * OfficialHeader.jsx - Component to display title information above a OfficialItem component.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */

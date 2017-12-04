@@ -1,5 +1,5 @@
 /**
- * Officials.jsx
+ * Officials.jsx - Officials page main file.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */

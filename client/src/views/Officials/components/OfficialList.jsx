@@ -1,5 +1,5 @@
 /**
- * OfficialList.jsx
+ * OfficialList.jsx - Component for displaying a list of officials.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -28,6 +28,7 @@ export default class OfficialList extends Component {
                 officials.push(official);
             }
 
+            // Update the UI
             this.setState({
                 officialList: officials
             });
@@ -37,6 +38,7 @@ export default class OfficialList extends Component {
     render() {
         const officials = [];
 
+        // Display a OfficialListItem component for each official
         let counter = 0;
         for (const official of this.state.officialList) {
             officials.push(

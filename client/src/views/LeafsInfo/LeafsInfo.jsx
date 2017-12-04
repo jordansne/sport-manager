@@ -1,5 +1,5 @@
 /**
- * LeafsInfo.jsx
+ * LeafsInfo.jsx - Leafs Info page main file.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -20,6 +20,7 @@ export default class LeafsInfo extends Component {
             officialComp: null
         };
 
+        // Allow for using 'this' in callback
         this.handleOfficialChange = this.handleOfficialChange.bind(this);
     }
 
@@ -27,6 +28,7 @@ export default class LeafsInfo extends Component {
         this.loadOfficial();
     }
 
+    // React dropdown change handler
     handleOfficialChange(event) {
         this.setState({
             officialOption: event.target.value,
@@ -36,10 +38,12 @@ export default class LeafsInfo extends Component {
         });
     }
 
+    // Retrieve the official information from the server
     loadOfficial() {
         let apiUrl = URL_PREFIX;
         let titleComp = null;
 
+        // Set the corresponding API call for the official
         if (this.state.officialOption === 'mostGames') {
             apiUrl += '/api/leafs/official/mostGames';
             titleComp = <h2>Officiated Most Maple Leafs Games</h2>;
@@ -55,6 +59,7 @@ export default class LeafsInfo extends Component {
 
         // Make GET request to retrieve the selected official information
         axios.get(apiUrl).then((response) => {
+            // Update the UI
             this.setState({
                 officialOption: this.state.officialOption,
                 officialComp: (

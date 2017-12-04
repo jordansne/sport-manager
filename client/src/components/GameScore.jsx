@@ -1,5 +1,5 @@
 /**
- * GameScore.jsx
+ * GameScore.jsx - Component to display basic game information (team, team city, & score).
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -11,6 +11,7 @@ export default class GameScore extends Component {
     render() {
         let winner = 'none';
 
+        // Determine if team1 or team2 is the winner
         if (this.props.team1.score > this.props.team2.score) {
             winner = '1';
         } else if (this.props.team2.score > this.props.team1.score) {

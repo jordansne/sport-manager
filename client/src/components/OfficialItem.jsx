@@ -1,5 +1,5 @@
 /**
- * OfficialItem.jsx
+ * OfficialItem.jsx - Component for displaying an official's information.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */

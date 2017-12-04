@@ -1,5 +1,5 @@
 /**
- * App.jsx
+ * App.jsx - Makeshift 'router' to display the Teams, Games, Officials or Leafs page.
  * Jordan Mathewson - 250868197
  * CS3319A - Assignment #3
  */
@@ -38,6 +38,7 @@ export default class App extends Component {
                 break;
         }
 
+        // Display the clicked page
         this.setState({
             page: newPage
         });

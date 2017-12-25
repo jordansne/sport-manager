@@ -1,14 +1,13 @@
 {
-  "name": "nhl-manager",
+  "name": "sport-manager",
   "version": "1.0.0",
-  "description": "Mock NHL team, game & goal web manager.",
+  "description": "Mock sports team, game & goal web manager.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
-  "author": "",
-  "license": "MIT",
+  "author": "Jordan Sne",
   "dependencies": {
     "axios": "0.17.1",
     "body-parser": "1.18.2",

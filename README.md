@@ -8,6 +8,10 @@ Sport Manager was a website project for my databases course during my third year
 
 Here are some demos of its features with data in the database. Any data created, deleted or edited is immediately updated in the database.
 
+![alt text](docs/demo/AppDemo.gif "App Demo")
+
+More detailed demos:
+
 [Team Page Demo](docs/demo/teams/TeamDemo.md)
 
 [Game Page Demo](docs/demo/games/GameDemo.md)

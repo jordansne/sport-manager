@@ -6,7 +6,7 @@ Sport Manager was a website project for my databases course during my third year
 
 ## Demos
 
-Here are some demos of its features with data in the database. Any data created, deleted or edited is immediately updated in the database.
+Here are some demos of its features with data in the database. Any data created, deleted or edited is immediately updated in the database. The data portrayed in demo is fake NHL data.
 
 ![alt text](docs/demo/AppDemo.gif "App Demo")
 

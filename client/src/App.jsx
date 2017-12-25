@@ -48,7 +48,7 @@ export default class App extends Component {
         return (
             <div>
                 <header>
-                    <h1>NHL Manager</h1>
+                    <h1>Sport Manager</h1>
                 </header>
 
                 <section>

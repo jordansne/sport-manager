@@ -46,15 +46,15 @@ export default class LeafsInfo extends Component {
         // Set the corresponding API call for the official
         if (this.state.officialOption === 'mostGames') {
             apiUrl += '/api/leafs/official/mostGames';
-            titleComp = <h2>Officiated Most Maple Leafs Games</h2>;
+            titleComp = <h2>Officiated Most Leafs Games</h2>;
 
         } else if (this.state.officialOption === 'mostWins') {
             apiUrl += '/api/leafs/official/mostWins';
-            titleComp = <h2>Officiated Most Maple Leafs Wins</h2>;
+            titleComp = <h2>Officiated Most Leafs Wins</h2>;
 
         } else if (this.state.officialOption == 'mostLosses') {
             apiUrl += '/api/leafs/official/mostLosses';
-            titleComp = <h2>Officiated Most Maple Leafs Losses</h2>;
+            titleComp = <h2>Officiated Most Leafs Losses</h2>;
         }
 
         // Make GET request to retrieve the selected official information
@@ -83,7 +83,7 @@ export default class LeafsInfo extends Component {
             <div>
                 <h1>Leafs Information</h1>
 
-                <h2>Maple Leafs Games</h2>
+                <h2>Leafs Games</h2>
                 <LeafGames />
 
                 <h2>Official Information</h2>
